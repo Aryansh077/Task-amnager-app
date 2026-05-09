@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Task Management System</h1>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="#" data-section="tasks" class="nav-link active">My Tasks</a></li>
+                        <li><a href="#" data-section="analytics" class="nav-link">Analytics</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Tasks Section -->
+                <section id="tasks-section" class="section active">
+                    <div class="section-header">
+                        <h2>My Tasks</h2>
+                        <button id="addTaskBtn" class="btn btn-primary">+ Add New Task</button>
+                    </div>
+
+                    <!-- Add Task Form -->
+                    <div id="addTaskForm" class="form-container hidden">
+                        <h3>Create New Task</h3>
+                        <form id="taskForm">
+                            <div class="form-group">
+                                <label for="taskTitle">Task Title *</label>
+                                <input type="text" id="taskTitle" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDescription">Description</label>
+                                <textarea id="taskDescription" name="description" rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="taskPriority">Priority</label>
+                                    <select id="taskPriority" name="priority">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="taskStatus">Status</label>
+                                    <select id="taskStatus" name="status">
+                                        <option value="pending" selected>Pending</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Create Task</button>
+                                <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tasks List -->
+                    <div id="tasksList" class="tasks-list">
+                        <p class="loading">Loading tasks...</p>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics-section" class="section">
+                    <div class="section-header">
+                        <h2>Task Analytics</h2>
+                    </div>
+
+                    <div class="analytics-container">
+                        <!-- Statistics Cards -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3>Total Tasks</h3>
+                                <p id="totalTasks" class="stat-value">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Completed</h3>
+                                <p id="completedTasks" class="stat-value">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Pending</h3>
+                                <p id="pendingTasks" class="stat-value">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Completion Rate</h3>
+                                <p id="completionPercentage" class="stat-value">0%</p>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Analytics -->
+                        <div class="advanced-analytics">
+                            <h3>Advanced Analytics</h3>
+                            <div class="analytics-info">
+                                <p><strong>Average Priority:</strong> <span id="avgPriority">-</span></p>
+                                <p><strong>High Priority Tasks:</strong> <span id="highPriorityCount">0</span></p>
+                                <p><strong>Completion Rate:</strong> <span id="advCompletionRate">0%</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Status Distribution -->
+                        <div class="distribution">
+                            <h3>Status Distribution</h3>
+                            <div id="statusDistribution" class="distribution-items">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="notification hidden"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
